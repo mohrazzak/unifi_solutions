@@ -9,6 +9,10 @@ I have tried to imagine as much scenarios and test cases as i can ^\_^
 
 Explore the API endpoints and their functionalities through Swagger documentation, facilitating ease of understanding and integration.
 
+[Deployed Backend Swagger](https://unifi-solutions.onrender.com/docs)
+- username: admin
+- password: admin
+
 ## Entity-Relationship Diagram (ERD)
 
 Understand the database structure and relationships by referring to the provided Entity-Relationship Diagram (ERD).
@@ -66,12 +70,11 @@ Contains files that are needed throughout the coding process.
 2. Install dependencies using `npm install`.
 3. add your .env file.
 4. Run the development server using `npm run start:dev`.
-5. Refer to the Swagger documentation to explore available endpoints. `https://localhost:5000/docs`
-   Make sure to authenticate in order to access Swagger (as it is a sensitive page) Username: admin Password: admin.
+5. Refer to the Swagger documentation to explore available endpoints. `https://localhost:5000/docs`.
 
 ## Author
 
-- Mohammad Abdalrazzak
+- [Mohammad Abdalrazzak](https://mohrazzak.tech)
 
 ## License
 
