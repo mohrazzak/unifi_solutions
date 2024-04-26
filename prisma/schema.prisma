@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator zod {
+  provider = "nestjs-zod-prisma"
+  output   = "../src/generated/zod"
+
+  relationModel = false
+
+  generateDto = false
+
+  modelCase = "PascalCase"
+
+  modelSuffix = "Schema"
+
+  dtoCase = "PascalCase"
+
+  dtoSuffix = "Entity"
+
+  useDecimalJs = false
+
+  imports = "../src/generated/zod/schemas"
+
+  prismaJsonNullability = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Item {
+  id          Int           @id @default(autoincrement()) /// @z.coerce.number()
+  name        String        @unique /// @z.string().default("Item #1")
+  weight      Float /// @z.number().default(15.4)
+  MissionItem MissionItem[]
+
+  @@index([name])
+}
+
+model Mover {
+  id          Int       @id @default(autoincrement()) /// @z.coerce.number()
+  energy      Int /// @z.number().default(14)
+  weightLimit Float /// @z.number().default(500)
+  Mission     Mission[]
+}
+
+model Mission {
+  id Int @id @default(autoincrement()) /// @z.coerce.number()
+
+  status      MissionStatus @default(LOADING)
+  moverId     Int /// @z.coerce.number()
+  Mover       Mover         @relation(fields: [moverId], references: [id])
+  MissionItem MissionItem[]
+}
+
+model MissionItem {
+  id Int @id @default(autoincrement()) /// @z.coerce.number()
+
+  missionId Int /// @z.coerce.number()
+  Mission   Mission @relation(fields: [missionId], references: [id])
+  itemId    Int /// @z.coerce.number()
+  Item      Item    @relation(fields: [itemId], references: [id])
+
+  @@unique([missionId, itemId])
+}
+
+enum MissionStatus {
+  LOADING
+  BUSY
+  RESTING
+  DONE
+}
